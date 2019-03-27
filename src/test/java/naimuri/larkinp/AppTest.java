@@ -1,4 +1,4 @@
-package naimuri.larkinp.WordSquareCalculator;
+package naimuri.larkinp;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

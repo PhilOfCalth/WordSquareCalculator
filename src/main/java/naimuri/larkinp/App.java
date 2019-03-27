@@ -1,4 +1,4 @@
-package naimuri.larkinp.WordSquareCalculator;
+package naimuri.larkinp;
 
 /**
  * Hello world!
