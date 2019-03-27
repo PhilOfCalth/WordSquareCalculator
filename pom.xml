@@ -11,6 +11,11 @@
   <url>http://maven.apache.org</url>
 
   <properties>
+    <!-- Java 11 has some new methods for strings that may be useful, 
+    but for ease of use, I'll stick with Java 8. It is the most likely 
+    one to b e in use in nainuri. -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -18,7 +23,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
