@@ -8,6 +8,9 @@ import org.junit.Before;
 //A little naughty but commonly done in tests
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
 
@@ -25,7 +28,7 @@ public class DictionaryUtilTest
     public void setup() throws UnreadableDictionaryException //Kill the test if I can't load the dict
     {
     	languageDict = new DictionaryUtilImpl();
-    	languageDict.loadDictionary();
+    	languageDict.loadDictionary(4, new HashSet<>(Arrays.asList('e', 'd', 'o', 'n', 's', 'r', 'v')));
     }
     
     @Test   //This test might be removed if the countLoadedWords() was considered unwanted/unnecessary
@@ -34,4 +37,9 @@ public class DictionaryUtilTest
     	assertTrue(0 < languageDict.countLoadedWords());
     }
     
+    @Test   //Test case for acceptance 4 and 5
+    public void testDictionaryNotAllStored()
+    {
+    	assertTrue(3903 > languageDict.countLoadedWords()); //previously 170000
+    }
 }

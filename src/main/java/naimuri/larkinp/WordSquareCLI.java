@@ -1,6 +1,10 @@
 package naimuri.larkinp;
 
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,7 +25,7 @@ public class WordSquareCLI
     	ApplicationContext ctx = 
               new ClassPathXmlApplicationContext("spring.xml");
     	DictionaryUtil dictionaryUtil = (DictionaryUtil) ctx.getBean("dictionaryUtil");
-    	dictionaryUtil.loadDictionary();
+    	dictionaryUtil.loadDictionary(4, new HashSet<>(Arrays.asList('e', 'd', 'o', 'n', 's', 'r', 'v')));
     	System.out.println(dictionaryUtil.countLoadedWords());
     }
 }

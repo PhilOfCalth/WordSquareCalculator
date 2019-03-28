@@ -1,10 +1,16 @@
 # WordSquareCalculator
 
 ## How to Run From The Command Line
+### Dependencies
+ - Java 8+
+ - Maven
+ 
 ##### Unit Tests 
 In the root directory type `mvn clean compile test`
+
 ##### Integration Tests (As provided in spec)
 In the root directory type `mvn clean compile integration-test`
+
 ##### To use The CLI
 1. Make a jar `mvn clean package`
 2. Have run the jar `java -jar target\WordSquareCalculator-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
@@ -12,9 +18,7 @@ In the root directory type `mvn clean compile integration-test`
 ## APIs and Libraries Used
  - Java 8
  - Junit
- - Spring-context (for dependency injection)
- - Spring-core (for some helper methods)
-
+ - spring-context (for dependency injection)
 
 ## Overall Methodology
 1. The problem was broken down into user stories (available under [userstories.md](userstories.md))
