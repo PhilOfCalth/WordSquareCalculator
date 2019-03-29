@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
@@ -42,4 +43,64 @@ public class DictionaryUtilTest
     {
     	assertTrue(3903 > languageDict.countLoadedWords()); //previously 170000
     }
+
+    @Test
+    public void testDictionarySearchByPrefixAndRemainingChars()
+    {
+    	/** So working from the example from the specs:
+    	 * Input: 4 eeeeddoonnnsssrv
+    	 * Step 1:
+    	 *  Found: nothing
+    	 *  prefix: 
+    	 * 
+    	 */
+    	Set<String> matchingWords = languageDict.search("");
+    	assertTrue(matchingWords.contains("rose"));
+    	
+    	/** Step 2:
+    	 *  Found:
+    	 *   rose
+    	 *   o***
+    	 *   s***
+    	 *   e***
+    	 *   
+    	 * Prefix: o
+    	 *
+    	 */
+    	matchingWords = languageDict.search("o");
+    	assertTrue(matchingWords.contains("oven"));
+    	
+    	/** Step 3:
+    	 *  Found:
+    	 *   rose
+    	 *   oven
+    	 *   se**
+    	 *   en**
+    	 *   
+    	 * Prefix: se
+    	 *
+    	 */
+    	matchingWords = languageDict.search("se");
+    	assertTrue(matchingWords.contains("send"));
+    	
+    	/** Step 4:
+    	 *  Found:
+    	 *   rose
+    	 *   oven
+    	 *   send
+    	 *   end*
+    	 *   
+    	 * Next prefix: end
+    	 * Remaining characters: s
+    	 *
+    	 */
+    	matchingWords = languageDict.search("end");
+    	assertTrue(matchingWords.contains("ends"));
+    	
+    	matchingWords = languageDict.search("ends");
+    	assertTrue(matchingWords.contains("ends"));
+    	assertEquals(1, matchingWords.size());
+
+    }
+    
 }

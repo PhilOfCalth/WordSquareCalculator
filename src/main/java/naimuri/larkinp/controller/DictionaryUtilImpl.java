@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,7 +30,6 @@ public class DictionaryUtilImpl implements DictionaryUtil{
 			List<String> words = Files.lines(dictPath)
 						.filter(word -> wordLength == word.length() 
 										&& wordContainsOnlyInterestingChars(word, interestingCharacters)) 
-										//I could be more fancy than this and get into regex and etc, but this is probibly the fastest way
 						.collect(Collectors.toList());
 			
 			languageDictionary = Collections.unmodifiableList(words);
@@ -44,8 +42,8 @@ public class DictionaryUtilImpl implements DictionaryUtil{
 		}
 	}
 
-	private boolean wordContainsOnlyInterestingChars(String word, Set<Character> interestingCharacters) {
-		
+	private boolean wordContainsOnlyInterestingChars(String word, Set<Character> interestingCharacters)
+	{
 		//Old school but I'm fairly sure this is the fastest way to do things here
 		for(int i = 0; i < word.length(); i++){
 			if( ! interestingCharacters.contains(word.charAt(i))) {
@@ -61,6 +59,23 @@ public class DictionaryUtilImpl implements DictionaryUtil{
 			return languageDictionary.size();
 		}
 		return 0;
+	}
+
+	public Set<String> search(String prefix)
+	{
+		HashSet<String> matches = new HashSet<>();
+		
+		if(null != languageDictionary)
+		{
+			// could be done with languageDictionary.forEach()
+			for(String word : languageDictionary)
+			{
+				if(word.startsWith(prefix)) {
+					matches.add(word);
+				}
+			}
+		}
+		return matches;
 	}
 
 	
