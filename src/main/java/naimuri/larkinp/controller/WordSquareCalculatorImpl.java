@@ -3,11 +3,14 @@ package naimuri.larkinp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import naimuri.larkinp.model.WordSquareTreeNode;
+
 @Controller
 public class WordSquareCalculatorImpl implements WordSquareCalculator{
 
 	private int wordLength; 
 	private String availableCharacters;
+	private WordSquareTreeNode treeRoot;
 	
 	@Autowired
 	DictionaryUtil languageDict;
@@ -25,6 +28,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		
 		this.wordLength = wordLength;
 		this.availableCharacters = availableCharacters;
+		this.treeRoot = new WordSquareTreeNode();
 	}
 
 	public int getWordLength() {
@@ -33,6 +37,10 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 
 	public String getAvailableCharacters() {
 		return this.availableCharacters;
+	}
+
+	public WordSquareTreeNode getTreeRoot() {
+		return treeRoot;
 	}
 	
 }
