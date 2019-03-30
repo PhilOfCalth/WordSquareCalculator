@@ -16,15 +16,15 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 	private static final String NOT_FINISHED_ANSWER = "NOT_FIN";
 	
 	private int wordLength; 
-	private String availableCharacters;
-	private SearchTreeNode treeRoot;
+//	private String availableCharacters;
+//	private SearchTreeNode treeRoot;
 	private String[] answer;
 	private StringBuilder[] remainingLetters;
 	
 	@Autowired
 	DictionaryUtil languageDict;
 	
-	public void init(int wordLength, String availableCharacters) throws UnreadableDictionaryException
+	public String[] genorateCube(int wordLength, String availableCharacters) throws UnreadableDictionaryException
 	{
 																	//Could also be done with Math.pow
 		if(null == availableCharacters || availableCharacters.length() != (wordLength * wordLength)) 
@@ -38,8 +38,8 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		this.wordLength = wordLength;
 		this.answer = new String[wordLength];
 		this.answer[wordLength - 1] = NOT_FINISHED_ANSWER;
-		this.availableCharacters = availableCharacters;
-		this.remainingLetters = new StringBuilder[4];
+//		this.availableCharacters = availableCharacters;
+		this.remainingLetters = new StringBuilder[wordLength + 1];
 		this.remainingLetters[0] = new StringBuilder(availableCharacters);
 		
 		Set<Character> interestingCharacters = availableCharacters
@@ -50,11 +50,13 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		languageDict.loadDictionary(wordLength, interestingCharacters);
 		
 		buildAnswer();
+		
+		return this.answer;
 	}
 
 	private void buildAnswer()
 	{
-		this.treeRoot = new SearchTreeNode();
+		SearchTreeNode treeRoot = new SearchTreeNode();
 		buildBranch(treeRoot, 0);
 	}
 	
@@ -76,6 +78,9 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 					buildBranch(newChild, depth+1);
 					node.getChildren().remove(newChild);
 				}
+				if(this.answer[wordLength - 1] != NOT_FINISHED_ANSWER){
+					break;
+				}
 			}
 		}
 	}
@@ -91,7 +96,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		
 		for(int i = 0; i < newWord.length(); i++)
 		{
-			usedChar = String.valueOf(newWord.charAt(i));
+			usedChar = newWord.substring(i, i+1);
 			charIndex = newRemainingLetters.indexOf(usedChar);
 			if(-1 == charIndex) {
 				return false;
@@ -108,21 +113,21 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0;  i < depth; i++)
 		{
-			sb.append(answer[depth - 1].charAt(depth));
+			sb.append(answer[i].charAt(depth));
 		}
 		return sb.toString();
 	}
 
-	public int getWordLength() {
-		return this.wordLength;
-	}
-
-	public String getAvailableCharacters() {
-		return this.availableCharacters;
-	}
-
-	public SearchTreeNode getTreeRoot() {
-		return treeRoot;
-	}
+//	public int getWordLength() {
+//		return this.wordLength;
+//	}
+//
+//	public String getAvailableCharacters() {
+//		return this.availableCharacters;
+//	}
+//
+//	public SearchTreeNode getTreeRoot() {
+//		return treeRoot;
+//	}
 	
 }

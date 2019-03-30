@@ -12,8 +12,8 @@
 
 	<properties>
 		<!-- Java 11 has some new methods for strings that may be useful, but for 
-			ease of use, I'll stick with Java 8. It is the most likely one to be
-			the one most commonly in use in Nainuri. -->
+			ease of use, I'll stick with Java 8. It is the most likely one to be the 
+			one most commonly in use in Nainuri. -->
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<org.springframework.version>5.1.5.RELEASE</org.springframework.version>
@@ -27,12 +27,8 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
-			<scope>test</scope>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.mockito</groupId> <artifactId>mockito-all</artifactId> 
+			<version>1.10.19</version> <scope>test</scope> </dependency> -->
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -93,6 +89,27 @@
 						</manifest>
 					</archive>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.0</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>none</exclude>
+							</excludes>
+							<includes>
+								<include>**/*IntegrationTest</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

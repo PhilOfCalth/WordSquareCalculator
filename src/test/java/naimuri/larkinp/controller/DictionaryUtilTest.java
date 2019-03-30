@@ -14,11 +14,6 @@ import java.util.Set;
 
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
-
-/**
- * Unit test for simple App.
- */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "../resources/spring.xml")
 public class DictionaryUtilTest
@@ -41,7 +36,7 @@ public class DictionaryUtilTest
     @Test   //Test case for acceptance 4 and 5
     public void testDictionaryNotAllStored()
     {
-    	assertTrue(4 == languageDict.countLoadedWords()); //previously 170000
+    	assertTrue(100 > languageDict.countLoadedWords()); //previously 170000
     }
 
     @Test
