@@ -28,7 +28,7 @@ public class WordSquareCLI
     	}
     	
     	ApplicationContext ctx = 
-                new ClassPathXmlApplicationContext("spring.xml");
+                new ClassPathXmlApplicationContext("applicationcontext.xml");
     	
     	WordSquareCalculator wordSquareCalculator = (WordSquareCalculator) ctx.getBean("wordSquareCalculator");
     	printSquareToConsole(wordSquareCalculator.genorateCube(wordLength, args[1].toLowerCase()));
@@ -37,7 +37,8 @@ public class WordSquareCLI
 	public static void printSquareToConsole(String[] square)
 	{
 		String word;
-		
+
+		System.out.println("=======");
 		for(int i = 0; i < square.length; i++)
 		{
 			word = square[i];

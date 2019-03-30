@@ -99,9 +99,7 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							<excludes>
-								<exclude>none</exclude>
-							</excludes>
+							
 							<includes>
 								<include>**/*IntegrationTest</include>
 							</includes>

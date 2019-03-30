@@ -8,7 +8,7 @@ public interface DictionaryUtil {
 
 	void loadDictionary(int wordLength, Set<Character> interestingCharacters) throws UnreadableDictionaryException;
 	int countLoadedWords();
-	Set<String> search(String prefix); //TODO swap these out for CharacterArrays
+	Set<String> search(String prefix);
 	
 	static boolean wordContainsOnlyInterestingChars(String word, Set<Character> interestingCharacters)
 	{

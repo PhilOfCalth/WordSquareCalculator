@@ -15,7 +15,7 @@ import java.util.Set;
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "../resources/spring.xml")
+@ContextConfiguration(locations = "/applicationcontext.xml")
 public class DictionaryUtilTest
 {
 	@Autowired

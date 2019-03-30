@@ -13,7 +13,8 @@ In the root directory type `mvn clean compile integration-test`
 
 ##### To use The CLI
 1. Make a jar `mvn clean package`
-2. Have run the jar `java -jar target\WordSquareCalculator-1.0.0-SNAPSHOT-jar-with-dependencies.jar`
+2. Have run the jar `java -jar target\WordSquareCalculator-1.0.0-SNAPSHOT-jar-with-dependencies.jar` followed by the arguments. EG:
+`java -jar target\WordSquareCalculator-1.0.0-SNAPSHOT-jar-with-dependencies.jar 4 eeeeddoonnnsssrv` 
 
 ## APIs and Libraries Used
  - Java 8
