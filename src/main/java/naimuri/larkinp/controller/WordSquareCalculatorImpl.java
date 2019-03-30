@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
-import naimuri.larkinp.model.WordSquareTreeNode;
+import naimuri.larkinp.model.SearchTreeNode;
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
 @Controller
 public class WordSquareCalculatorImpl implements WordSquareCalculator{
 
+	private static final String NOT_FINISHED_ANSWER = "NOT_FIN";
+	
 	private int wordLength; 
 	private String availableCharacters;
-	private WordSquareTreeNode treeRoot;
+	private SearchTreeNode treeRoot;
+	private String[] answer;
 	
 	@Autowired
 	DictionaryUtil languageDict;
@@ -32,6 +35,8 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		}
 		
 		this.wordLength = wordLength;
+		this.answer = new String[wordLength];
+		this.answer[wordLength - 1] = NOT_FINISHED_ANSWER;
 		this.availableCharacters = availableCharacters;
 		
 		Set<Character> interestingCharacters = availableCharacters
@@ -46,15 +51,38 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 
 	private void buildAnswer()
 	{
-		this.treeRoot = new WordSquareTreeNode();
-		WordSquareTreeNode newChild;
-		Set<String> childrenWords = languageDict.search("");
-		
-		for(String childWord : childrenWords)
+		this.treeRoot = new SearchTreeNode();
+		buildBranch(treeRoot, 0);
+	}
+	
+	private void buildBranch(SearchTreeNode node, int depth)
+	{
+		if(this.answer[wordLength - 1] == NOT_FINISHED_ANSWER)
 		{
-			newChild = new WordSquareTreeNode(treeRoot, childWord);
-			this.treeRoot.getChildren().add(newChild);
+			SearchTreeNode newChild;
+			String prefix = genoratePrefix(depth);
+			Set<String> childrenWords = languageDict.search(prefix);
+			
+			for(String childWord : childrenWords)
+			{
+				// validate I Have Enough Remaining Characters
+				
+				newChild = new SearchTreeNode(node, childWord);
+				node.getChildren().add(newChild);
+				answer[depth] = childWord;
+				buildBranch(newChild, depth+1);
+			}
 		}
+	}
+	
+	private String genoratePrefix(int depth)
+	{
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0;  i < depth; i++)
+		{
+			sb.append(answer[depth - 1].charAt(depth));
+		}
+		return sb.toString();
 	}
 
 	public int getWordLength() {
@@ -65,7 +93,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		return this.availableCharacters;
 	}
 
-	public WordSquareTreeNode getTreeRoot() {
+	public SearchTreeNode getTreeRoot() {
 		return treeRoot;
 	}
 	

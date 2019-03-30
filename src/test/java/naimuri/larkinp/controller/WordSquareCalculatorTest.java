@@ -3,7 +3,7 @@ package naimuri.larkinp.controller;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import naimuri.larkinp.model.WordSquareTreeNode;
+import naimuri.larkinp.model.SearchTreeNode;
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
 import org.junit.Before;
@@ -54,19 +54,33 @@ public class WordSquareCalculatorTest
     }
 
     @Test
-    public void testTreeBranchHasValidWord()
+    public void testTreeBranchHasValidWords()
     {
-    	WordSquareTreeNode root = wsCalculator.getTreeRoot();
+    	//Each node of the tree after the root represents another word in the word square
+    	SearchTreeNode root = wsCalculator.getTreeRoot();
     	
     	assertNotNull(root.getChildren());
     	assertFalse(root.getChildren().isEmpty());
     	
-    	// Painful to do but I believe HashSet is the best datastructure for the function outside the test
-    	// and I'm fairly sure I'm going to have to get rid of this test in a later refactor stage
-    	WordSquareTreeNode node = (WordSquareTreeNode) root.getChildren().toArray()[0];
-    	String word = node.getWord();
-    	assertEquals(4, word.length());
-    	assertTrue(DictionaryUtil.wordContainsOnlyInterestingChars(word, UNIQUE_CHARS_SET));
-    	
+    	for(SearchTreeNode node: root.getChildren())
+    	{
+	    	// Painful to do but I believe HashSet is the best datastructure for the function outside the test
+	    	// and I'm fairly sure I'm going to have to get rid of this test in a later refactor stage
+	    	String word = node.getWord();
+	    	assertEquals(4, word.length());
+	    	assertTrue(DictionaryUtil.wordContainsOnlyInterestingChars(word, UNIQUE_CHARS_SET));
+	    	
+	    	if(! node.getChildren().isEmpty())
+	    	{
+		    	//The list of child nodes are created by searching the dictionary with prefix created by the nodes parents
+		    	node = (SearchTreeNode) node.getChildren().toArray()[0];
+		    	String nextWord = node.getWord();
+		    	assertEquals(4, nextWord.length());
+		    	assertTrue(DictionaryUtil.wordContainsOnlyInterestingChars(word, UNIQUE_CHARS_SET));
+		    	assertEquals(word.charAt(1), nextWord.charAt(0));
+	    	}
+    	}
     }
+    
+    
 }
