@@ -24,7 +24,7 @@ public class JavaApiIntegrationTest
     {
     	String[] square = wsCalculator.genorateCube(4, "aaccdeeeemmnnnoo");
     	
-    	validateCube(5, "aaaeeeefhhmoonssrrrrttttw", square);
+    	validateCube(4, "aaccdeeeemmnnnoo", square);
     	WordSquareCLI.printSquareToConsole(square);
     }
 
@@ -77,6 +77,6 @@ public class JavaApiIntegrationTest
 			}
 		}
 		
-		assertEquals(0, remainingChars);
+		assertEquals(0, remainingChars.length());
 	}
 }

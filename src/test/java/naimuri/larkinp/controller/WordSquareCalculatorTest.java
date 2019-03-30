@@ -57,7 +57,7 @@ public class WordSquareCalculatorTest
     	assertEquals("ends", cube[3]);
     }
     
-    //mockito a better way of doing this!!!
+    //mockito is a better way of doing this!!!
     private class TesterDictionary extends DictionaryUtilImpl{
     	public void loadDictionary(int wordLength, Set<Character> interestingCharacters) throws UnreadableDictionaryException{}
     }
