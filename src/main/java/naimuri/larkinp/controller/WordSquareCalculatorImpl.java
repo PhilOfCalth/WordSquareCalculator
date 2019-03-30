@@ -19,6 +19,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 	private String availableCharacters;
 	private SearchTreeNode treeRoot;
 	private String[] answer;
+	private StringBuilder[] remainingLetters;
 	
 	@Autowired
 	DictionaryUtil languageDict;
@@ -38,6 +39,8 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		this.answer = new String[wordLength];
 		this.answer[wordLength - 1] = NOT_FINISHED_ANSWER;
 		this.availableCharacters = availableCharacters;
+		this.remainingLetters = new StringBuilder[4];
+		this.remainingLetters[0] = new StringBuilder(availableCharacters);
 		
 		Set<Character> interestingCharacters = availableCharacters
 												.chars()
@@ -65,16 +68,41 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 			
 			for(String childWord : childrenWords)
 			{
-				// validate I Have Enough Remaining Characters
-				
-				newChild = new SearchTreeNode(node, childWord);
-				node.getChildren().add(newChild);
-				answer[depth] = childWord;
-				buildBranch(newChild, depth+1);
+				if(calculateNewUsedCharacters(childWord, depth))
+				{
+					newChild = new SearchTreeNode(node, childWord);
+					node.getChildren().add(newChild);
+					answer[depth] = childWord;
+					buildBranch(newChild, depth+1);
+					node.getChildren().remove(newChild);
+				}
 			}
 		}
 	}
 	
+	/**
+	 * @return false of there are not enough remaining characters for the new word
+	 */
+	private boolean calculateNewUsedCharacters(String newWord, int depth)
+	{
+		StringBuilder newRemainingLetters = new StringBuilder(remainingLetters[depth]);
+		String usedChar;
+		int charIndex;
+		
+		for(int i = 0; i < newWord.length(); i++)
+		{
+			usedChar = String.valueOf(newWord.charAt(i));
+			charIndex = newRemainingLetters.indexOf(usedChar);
+			if(-1 == charIndex) {
+				return false;
+			}
+			newRemainingLetters.deleteCharAt(charIndex);
+		}
+		
+		remainingLetters[depth+1] = newRemainingLetters;
+		return true;
+	}
+
 	private String genoratePrefix(int depth)
 	{
 		StringBuilder sb = new StringBuilder();
