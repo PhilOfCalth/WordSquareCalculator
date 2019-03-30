@@ -6,11 +6,13 @@ import java.util.HashSet;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import naimuri.larkinp.controller.DictionaryUtil;
 import naimuri.larkinp.controller.WordSquareCalculator;
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
+@Component
 public class WordSquareCLI 
 {
     public static void main( String[] args ) throws UnreadableDictionaryException
@@ -18,6 +20,7 @@ public class WordSquareCLI
 //    	ApplicationContext ctx = 
 //                new ClassPathXmlApplicationContext("spring.xml");
 //    	WordSquareCalculator wordSquareCalculator = (WordSquareCalculator) ctx.getBean("wordSquareCalculator");
+//    	wordSquareCalculator.init(4, "eeeeddoonnnsssrv");
 
     	//Etc
     	

@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import naimuri.larkinp.util.UnreadableDictionaryException;
@@ -19,7 +20,7 @@ import naimuri.larkinp.util.UnreadableDictionaryException;
 @Controller
 public class DictionaryUtilImpl implements DictionaryUtil{
 
-	Resource resourceFile = new ClassPathResource("naimuri/larkinp/resources/dictionary.txt");
+	Resource resourceFile = new ClassPathResource("/naimuri/larkinp/resources/dictionary.txt");
 	List<String> languageDictionary;
 	
 	public void loadDictionary(int wordLength, Set<Character> interestingCharacters) throws UnreadableDictionaryException
@@ -29,7 +30,7 @@ public class DictionaryUtilImpl implements DictionaryUtil{
 			//May be a bit of an advantage for streams in dealing with fileIO
 			List<String> words = Files.lines(dictPath)
 						.filter(word -> wordLength == word.length() 
-										&& wordContainsOnlyInterestingChars(word, interestingCharacters)) 
+										&& DictionaryUtil.wordContainsOnlyInterestingChars(word, interestingCharacters)) 
 						.collect(Collectors.toList());
 			
 			languageDictionary = Collections.unmodifiableList(words);
@@ -40,17 +41,6 @@ public class DictionaryUtilImpl implements DictionaryUtil{
 			e.printStackTrace();
 			throw new UnreadableDictionaryException(e);
 		}
-	}
-
-	private boolean wordContainsOnlyInterestingChars(String word, Set<Character> interestingCharacters)
-	{
-		//Old school but I'm fairly sure this is the fastest way to do things here
-		for(int i = 0; i < word.length(); i++){
-			if( ! interestingCharacters.contains(word.charAt(i))) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	public int countLoadedWords() {
