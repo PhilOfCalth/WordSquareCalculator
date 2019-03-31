@@ -19,6 +19,8 @@ public class WordSquareCLI
     		System.out.println("Not enough arguments");
     		return;
     	}
+
+    	// consistent bracket placement
     	try {
     		wordLength = Integer.parseInt(args[0]);
     	}
@@ -31,11 +33,15 @@ public class WordSquareCLI
                 new ClassPathXmlApplicationContext("spring.xml");
     	
     	WordSquareCalculator wordSquareCalculator = (WordSquareCalculator) ctx.getBean("wordSquareCalculator");
-    	printSquareToConsole(wordSquareCalculator.genorateCube(wordLength, args[1].toLowerCase()));
+    	printSquareToConsole(wordSquareCalculator.generateCube(wordLength, args[1].toLowerCase()));
     }
-    
+
+    // can be private
 	public static void printSquareToConsole(String[] square)
 	{
+
+//		can do in a java 8 way, which people like!
+//		Arrays.stream(square).forEach(System.out::println);
 		String word;
 		
 		for(int i = 0; i < square.length; i++)

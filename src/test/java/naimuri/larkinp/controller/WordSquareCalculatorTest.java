@@ -44,13 +44,13 @@ public class WordSquareCalculatorTest
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidArgumentsRejected() throws UnreadableDictionaryException
     {
-    	wsCalculator.genorateCube(5, TEST_AVAILABLE_CHARACTERS);
+    	wsCalculator.generateCube(5, TEST_AVAILABLE_CHARACTERS);
     }
 
     @Test
     public void testMakesTestSquare() throws UnreadableDictionaryException
     {
-    	String[] cube = wsCalculator.genorateCube(4, TEST_AVAILABLE_CHARACTERS);
+    	String[] cube = wsCalculator.generateCube(4, TEST_AVAILABLE_CHARACTERS);
     	assertEquals("rose", cube[0]);
     	assertEquals("oven", cube[1]);
     	assertEquals("send", cube[2]);
