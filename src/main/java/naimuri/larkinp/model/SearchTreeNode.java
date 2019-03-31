@@ -5,13 +5,14 @@ import java.util.Set;
 
 public class SearchTreeNode
 {
-	private SearchTreeNode parent;
-	private String word;
-	private HashSet<SearchTreeNode> children;
+	private final SearchTreeNode parent;
+	private final String word;
+	private final HashSet<SearchTreeNode> children;
 	
 
 	public SearchTreeNode()
 	{
+		this.parent = null;
 		this.word = "";
 		this.children = new HashSet<>();
 	}
@@ -30,9 +31,7 @@ public class SearchTreeNode
 	
 	// I could have lombok take care of these, but I have enough dependencies for now
 	public SearchTreeNode getParent() { return parent; }
-	public void setParent(SearchTreeNode parent) { this.parent = parent; }
 	public String getWord() { return word; }
-	public void setWord(String word) { this.word = word; }
 	public Set<SearchTreeNode> getChildren() { return children; }
 	
 }

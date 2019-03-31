@@ -24,7 +24,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 	@Autowired
 	DictionaryUtil languageDict;
 	
-	public String[] genorateCube(int wordLength, String availableCharacters) throws UnreadableDictionaryException
+	public String[] generateCube(int wordLength, String availableCharacters) throws UnreadableDictionaryException
 	{
 																	//Could also be done with Math.pow
 		if(null == availableCharacters || availableCharacters.length() != (wordLength * wordLength)) 

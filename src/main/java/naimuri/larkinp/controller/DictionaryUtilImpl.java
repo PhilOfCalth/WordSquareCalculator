@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import naimuri.larkinp.util.UnreadableDictionaryException;
@@ -20,7 +19,7 @@ import naimuri.larkinp.util.UnreadableDictionaryException;
 @Controller
 public class DictionaryUtilImpl implements DictionaryUtil{
 
-	Resource resourceFile = new ClassPathResource("/naimuri/larkinp/resources/dictionary.txt");
+	Resource resourceFile = new ClassPathResource("dictionary.txt");
 	List<String> languageDictionary;
 	
 	public void loadDictionary(int wordLength, Set<Character> interestingCharacters) throws UnreadableDictionaryException

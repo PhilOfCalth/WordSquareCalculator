@@ -1,16 +1,24 @@
 package naimuri.larkinp;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
 
 import naimuri.larkinp.controller.WordSquareCalculator;
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
-@Component
+
+@ContextConfiguration(locations = "/applicationcontext.xml")
 public class WordSquareCLI 
 {	
+	@Autowired
+	WordSquareCalculator wordSquareCalculator;
+	
+	
     public static void main( String[] args ) throws UnreadableDictionaryException
     {
     	int wordLength;
@@ -27,11 +35,11 @@ public class WordSquareCLI
     		return;
     	}
     	
-    	ApplicationContext ctx = 
+    	ConfigurableApplicationContext ctx = 
                 new ClassPathXmlApplicationContext("applicationcontext.xml");
     	
     	WordSquareCalculator wordSquareCalculator = (WordSquareCalculator) ctx.getBean("wordSquareCalculator");
-    	printSquareToConsole(wordSquareCalculator.genorateCube(wordLength, args[1].toLowerCase()));
+    	printSquareToConsole(wordSquareCalculator.generateCube(wordLength, args[1].toLowerCase()));
     }
     
 	public static void printSquareToConsole(String[] square)
