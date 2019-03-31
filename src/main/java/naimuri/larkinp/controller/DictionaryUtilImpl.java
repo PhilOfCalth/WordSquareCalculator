@@ -1,17 +1,14 @@
 package naimuri.larkinp.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 
 import naimuri.larkinp.util.UnreadableDictionaryException;
@@ -19,26 +16,31 @@ import naimuri.larkinp.util.UnreadableDictionaryException;
 @Controller("dictionaryUtil")
 public class DictionaryUtilImpl implements DictionaryUtil{
 
-	Resource resourceFile = new ClassPathResource("dictionary.txt");
 	List<String> languageDictionary;
 	
 	public void loadDictionary(int wordLength, Set<Character> interestingCharacters) throws UnreadableDictionaryException
 	{		
-		try
+				
+		InputStream resourceStream = ClassLoader.getSystemClassLoader().getResourceAsStream("dictionary.txt");
+			
+		if(null != resourceStream)
 		{
-			Path dictPath = Paths.get(resourceFile.getFile().toURI());
+			BufferedReader resReader = new BufferedReader(new InputStreamReader(resourceStream));
+			
 			//May be a bit of an advantage for streams in dealing with fileIO
-			List<String> words = Files.lines(dictPath)
+			List<String> words = resReader.lines()
 						.filter(word -> wordLength == word.length() 
 										&& DictionaryUtil.wordContainsOnlyInterestingChars(word, interestingCharacters)) 
 						.collect(Collectors.toList());
 			
 			languageDictionary = Collections.unmodifiableList(words);
 			
-		} catch (IOException e) {
+		} 
+		else
+		{
 			// I would usually log this properly, but for right now, I'll just print it to the console
-			e.printStackTrace();
-			throw new UnreadableDictionaryException(e);
+			System.out.println("ERROR: Could not find dictionary locally!");
+			throw new UnreadableDictionaryException();
 		}
 	}
 

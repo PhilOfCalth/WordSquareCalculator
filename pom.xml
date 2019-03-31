@@ -4,7 +4,7 @@
 
 	<groupId>naimuri.larkinp</groupId>
 	<artifactId>WordSquareCalculator</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>WordSquareCalculator</name>
@@ -45,8 +45,15 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
+		<resources>
+	        <resource>
+	            <directory>${basedir}/src/main/resources</directory>
+	            <includes>
+	                <include>dictionary.txt</include>
+	            </includes>
+	        </resource>
+	    </resources>
 		<plugins>
 			<plugin>
 				<!-- Build an executable JAR -->
@@ -78,11 +85,12 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
-
+					<includes>
+          				<include>dictionary.txt</include>
+          			</includes>
+					<finalName>WordSquareCalculator</finalName>
 					<archive>
 						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib/</classpathPrefix>
 							<mainClass>naimuri.larkinp.WordSquareCLI</mainClass>
 						</manifest>
 					</archive>
@@ -99,7 +107,9 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							
+							<excludes>
+								<include>*</include>
+							</excludes>
 							<includes>
 								<include>**/*IntegrationTest</include>
 							</includes>
