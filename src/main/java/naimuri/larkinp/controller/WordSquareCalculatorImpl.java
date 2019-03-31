@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import naimuri.larkinp.model.SearchTreeNode;
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
-@Controller
+@Controller("wordSquareCalculator")
 public class WordSquareCalculatorImpl implements WordSquareCalculator{
 
 	private static final String NOT_FINISHED_ANSWER = "NOT_FIN";

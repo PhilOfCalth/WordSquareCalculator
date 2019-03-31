@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -13,7 +15,7 @@ import naimuri.larkinp.controller.WordSquareCalculator;
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationcontext.xml")
+@ContextConfiguration
 public class JavaApiIntegrationTest 
 {
 	@Autowired
@@ -79,4 +81,9 @@ public class JavaApiIntegrationTest
 		
 		assertEquals(0, remainingChars.length());
 	}
+
+    @Configuration
+    @ComponentScan("naimuri.larkinp")
+    public static class SpringConfig {}
+    
 }

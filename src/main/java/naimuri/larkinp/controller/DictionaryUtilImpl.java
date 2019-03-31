@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
-@Controller
+@Controller("dictionaryUtil")
 public class DictionaryUtilImpl implements DictionaryUtil{
 
 	Resource resourceFile = new ClassPathResource("dictionary.txt");
@@ -24,7 +24,8 @@ public class DictionaryUtilImpl implements DictionaryUtil{
 	
 	public void loadDictionary(int wordLength, Set<Character> interestingCharacters) throws UnreadableDictionaryException
 	{		
-		try {
+		try
+		{
 			Path dictPath = Paths.get(resourceFile.getFile().toURI());
 			//May be a bit of an advantage for streams in dealing with fileIO
 			List<String> words = Files.lines(dictPath)
@@ -33,7 +34,6 @@ public class DictionaryUtilImpl implements DictionaryUtil{
 						.collect(Collectors.toList());
 			
 			languageDictionary = Collections.unmodifiableList(words);
-			
 			
 		} catch (IOException e) {
 			// I would usually log this properly, but for right now, I'll just print it to the console

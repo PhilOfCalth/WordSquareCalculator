@@ -7,6 +7,8 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,7 +17,7 @@ import java.util.Set;
 import naimuri.larkinp.util.UnreadableDictionaryException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationcontext.xml")
+@ContextConfiguration
 public class DictionaryUtilTest
 {
 	@Autowired
@@ -98,4 +100,7 @@ public class DictionaryUtilTest
 
     }
     
+    @Configuration
+    @ComponentScan("naimuri.larkinp")
+    public static class SpringConfig {}
 }
