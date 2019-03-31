@@ -22,7 +22,7 @@ public class JavaApiIntegrationTest
 	@Test
     public void testAaccdeeeemmnnnoo() throws UnreadableDictionaryException
     {
-    	String[] square = wsCalculator.genorateCube(4, "aaccdeeeemmnnnoo");
+    	String[] square = wsCalculator.generateCube(4, "aaccdeeeemmnnnoo");
     	
     	validateCube(5, "aaaeeeefhhmoonssrrrrttttw", square);
     	WordSquareCLI.printSquareToConsole(square);
@@ -31,7 +31,7 @@ public class JavaApiIntegrationTest
 	@Test
     public void testAaaeeeefhhmoonssrrrrttttw() throws UnreadableDictionaryException
     {
-    	String[] square = wsCalculator.genorateCube(5, "aaaeeeefhhmoonssrrrrttttw");
+    	String[] square = wsCalculator.generateCube(5, "aaaeeeefhhmoonssrrrrttttw");
     	
     	validateCube(5, "aaaeeeefhhmoonssrrrrttttw", square);
     	WordSquareCLI.printSquareToConsole(square);
@@ -40,7 +40,7 @@ public class JavaApiIntegrationTest
 	@Test
     public void testMakesTestSquare() throws UnreadableDictionaryException
     {
-    	String[] square = wsCalculator.genorateCube(5, "aabbeeeeeeeehmosrrrruttvv");
+    	String[] square = wsCalculator.generateCube(5, "aabbeeeeeeeehmosrrrruttvv");
     	
     	validateCube(5, "aabbeeeeeeeehmosrrrruttvv", square);
     	WordSquareCLI.printSquareToConsole(square);
@@ -49,7 +49,7 @@ public class JavaApiIntegrationTest
 	@Test
     public void testAaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy() throws UnreadableDictionaryException
     {
-    	String[] square = wsCalculator.genorateCube(7, "aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy");
+    	String[] square = wsCalculator.generateCube(7, "aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy");
     	
     	validateCube(7, "aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy", square);
     	WordSquareCLI.printSquareToConsole(square);

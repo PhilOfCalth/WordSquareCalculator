@@ -20,6 +20,7 @@ import naimuri.larkinp.util.UnreadableDictionaryException;
 @Controller
 public class DictionaryUtilImpl implements DictionaryUtil{
 
+//	This file should be located in the resources folder under main
 	Resource resourceFile = new ClassPathResource("/naimuri/larkinp/resources/dictionary.txt");
 	List<String> languageDictionary;
 	
@@ -57,6 +58,9 @@ public class DictionaryUtilImpl implements DictionaryUtil{
 		
 		if(null != languageDictionary)
 		{
+			//streamifying this would be best
+
+//			return languageDictionary.stream().filter(word -> word.startsWith(prefix)).collect(Collectors.toSet());
 			// could be done with languageDictionary.forEach()
 			for(String word : languageDictionary)
 			{

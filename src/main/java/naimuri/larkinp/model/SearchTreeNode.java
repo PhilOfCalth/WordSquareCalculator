@@ -9,7 +9,7 @@ public class SearchTreeNode
 	private String word;
 	private HashSet<SearchTreeNode> children;
 	
-
+	//should this node be mutable once constructed? if not final properties and no setters
 	public SearchTreeNode()
 	{
 		this.word = "";

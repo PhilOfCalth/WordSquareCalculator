@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import naimuri.larkinp.model.SearchTreeNode;
 import naimuri.larkinp.util.UnreadableDictionaryException;
@@ -24,7 +23,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 	@Autowired
 	DictionaryUtil languageDict;
 	
-	public String[] genorateCube(int wordLength, String availableCharacters) throws UnreadableDictionaryException
+	public String[] generateCube(int wordLength, String availableCharacters) throws UnreadableDictionaryException
 	{
 																	//Could also be done with Math.pow
 		if(null == availableCharacters || availableCharacters.length() != (wordLength * wordLength)) 
@@ -65,7 +64,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		if(this.answer[wordLength - 1] == NOT_FINISHED_ANSWER)
 		{
 			SearchTreeNode newChild;
-			String prefix = genoratePrefix(depth);
+			String prefix = generatePrefix(depth);
 			Set<String> childrenWords = languageDict.search(prefix);
 			
 			for(String childWord : childrenWords)
@@ -108,7 +107,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		return true;
 	}
 
-	private String genoratePrefix(int depth)
+	private String generatePrefix(int depth)
 	{
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0;  i < depth; i++)
