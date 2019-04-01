@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import naimuri.larkinp.controller.WordSquareCalculator;
 import naimuri.larkinp.util.UnreadableDictionaryException;
+import naimuri.larkinp.util.UnsolvableWordSquareException;
 
 
 @Component
@@ -33,7 +34,14 @@ public class WordSquareCLI
                 //new ClassPathXmlApplicationContext("ApplicationContext.xml");
     	
     	WordSquareCalculator wordSquareCalculator = (WordSquareCalculator) ctx.getBean("wordSquareCalculator");
-    	printSquareToConsole(wordSquareCalculator.generateCube(wordLength, args[1].toLowerCase()));
+    	try {
+			printSquareToConsole(wordSquareCalculator.generateCube(wordLength, args[1].toLowerCase()));
+		} catch (UnsolvableWordSquareException e) {
+			System.out.println(" == Fail state for "+e.getWordLength()+" "+e.getAvailableCharacters()+" == ");
+			System.out.println(e.getMessage());
+			//would also print stuff to the console
+			//e.printStackTrace();
+		}
     }
     
 	public static void printSquareToConsole(String[] square)

@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.junit.Test;
 import naimuri.larkinp.controller.WordSquareCalculator;
 import naimuri.larkinp.util.UnreadableDictionaryException;
+import naimuri.larkinp.util.UnsolvableWordSquareException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -22,7 +23,7 @@ public class JavaApiIntegrationTest
 	WordSquareCalculator wsCalculator;
 
 	@Test
-    public void testAaccdeeeemmnnnoo() throws UnreadableDictionaryException
+    public void testAaccdeeeemmnnnoo() throws UnreadableDictionaryException, UnsolvableWordSquareException
     {
     	String[] square = wsCalculator.generateCube(4, "aaccdeeeemmnnnoo");
     	
@@ -31,7 +32,7 @@ public class JavaApiIntegrationTest
     }
 
 	@Test
-    public void testAaaeeeefhhmoonssrrrrttttw() throws UnreadableDictionaryException
+    public void testAaaeeeefhhmoonssrrrrttttw() throws UnreadableDictionaryException, UnsolvableWordSquareException
     {
     	String[] square = wsCalculator.generateCube(5, "aaaeeeefhhmoonssrrrrttttw");
     	
@@ -40,7 +41,7 @@ public class JavaApiIntegrationTest
     }
 
 	@Test
-    public void testMakesTestSquare() throws UnreadableDictionaryException
+    public void testMakesTestSquare() throws UnreadableDictionaryException, UnsolvableWordSquareException
     {
     	String[] square = wsCalculator.generateCube(5, "aabbeeeeeeeehmosrrrruttvv");
     	
@@ -49,12 +50,29 @@ public class JavaApiIntegrationTest
     }
 
 	@Test
-    public void testAaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy() throws UnreadableDictionaryException
+    public void testAaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy() throws UnreadableDictionaryException, UnsolvableWordSquareException
     {
     	String[] square = wsCalculator.generateCube(7, "aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy");
     	
     	validateCube(7, "aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy", square);
     	WordSquareCLI.printSquareToConsole(square);
+    }
+	
+	@Test
+    public void testFailState() throws UnreadableDictionaryException
+    {
+		int wordLength = 7;
+		String letters = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
+		
+    	try
+    	{
+    		wsCalculator.generateCube(wordLength, letters);
+    	}
+    	catch (UnsolvableWordSquareException e) {
+    		assertEquals(wordLength, e.getWordLength());
+    		assertEquals(letters, e.getAvailableCharacters());
+		}
+    	
     }
 	
 	private void validateCube(int wordLength, String characters, String[] cube)

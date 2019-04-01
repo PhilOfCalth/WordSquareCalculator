@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import naimuri.larkinp.model.SearchTreeNode;
 import naimuri.larkinp.util.UnreadableDictionaryException;
+import naimuri.larkinp.util.UnsolvableWordSquareException;
 
 @Controller("wordSquareCalculator")
 public class WordSquareCalculatorImpl implements WordSquareCalculator{
@@ -23,7 +24,7 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 	@Autowired
 	DictionaryUtil languageDict;
 	
-	public String[] generateCube(int wordLength, String availableCharacters) throws UnreadableDictionaryException
+	public String[] generateCube(int wordLength, String availableCharacters) throws UnreadableDictionaryException, UnsolvableWordSquareException
 	{
 																	//Could also be done with Math.pow
 		if(null == availableCharacters || availableCharacters.length() != (wordLength * wordLength)) 
@@ -50,7 +51,10 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		
 		buildAnswer();
 		
-		return this.answer;
+		if(this.answer[wordLength - 1] != NOT_FINISHED_ANSWER) {
+			return this.answer;
+		}
+		throw new UnsolvableWordSquareException(wordLength, availableCharacters);
 	}
 
 	private void buildAnswer()

@@ -2,6 +2,7 @@ package naimuri.larkinp.controller;
 
 import org.junit.Test;
 import naimuri.larkinp.util.UnreadableDictionaryException;
+import naimuri.larkinp.util.UnsolvableWordSquareException;
 
 import org.junit.Before;
 //A little naughty but commonly done in tests
@@ -42,13 +43,13 @@ public class WordSquareCalculatorTest
 	
 
     @Test(expected = IllegalArgumentException.class)
-    public void testInvalidArgumentsRejected() throws UnreadableDictionaryException
+    public void testInvalidArgumentsRejected() throws UnreadableDictionaryException, UnsolvableWordSquareException
     {
     	wsCalculator.generateCube(5, TEST_AVAILABLE_CHARACTERS);
     }
 
     @Test
-    public void testMakesTestSquare() throws UnreadableDictionaryException
+    public void testMakesTestSquare() throws UnreadableDictionaryException, UnsolvableWordSquareException
     {
     	String[] cube = wsCalculator.generateCube(4, TEST_AVAILABLE_CHARACTERS);
     	assertEquals("rose", cube[0]);
