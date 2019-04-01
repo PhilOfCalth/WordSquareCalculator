@@ -35,4 +35,4 @@ As a command line user I can run the application in a standalone manner by calli
 ### Acceptance
 1. As above
 2. A runnable jar is built containing all dependencies
-3. The when called with java -jar and followed by the correct arguments, the jar will solve a wordsquare
+3. When called with java -jar and followed by the correct arguments, the jar will solve a wordsquare
