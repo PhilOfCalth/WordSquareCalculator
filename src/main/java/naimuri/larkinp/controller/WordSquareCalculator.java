@@ -6,7 +6,5 @@ import naimuri.larkinp.util.UnsolvableWordSquareException;
 public interface WordSquareCalculator {
 
 	public String[] generateCube(int wordLength, String availableCharacters) throws UnreadableDictionaryException, UnsolvableWordSquareException;
-//	public int getWordLength();
-//	public String getAvailableCharacters();
-//	public SearchTreeNode getTreeRoot();
+
 }

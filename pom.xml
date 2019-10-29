@@ -72,9 +72,6 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
-					<includes>
-						<include>dictionary.txt</include>
-					</includes>
 					<finalName>WordSquareCalculator</finalName>
 					<archive>
 						<manifest>

@@ -1,23 +1,19 @@
 package naimuri.larkinp.controller;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
+import naimuri.larkinp.util.UnreadableDictionaryException;
+import naimuri.larkinp.util.UnsolvableWordSquareException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import naimuri.larkinp.model.SearchTreeNode;
-import naimuri.larkinp.util.UnreadableDictionaryException;
-import naimuri.larkinp.util.UnsolvableWordSquareException;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller("wordSquareCalculator")
 public class WordSquareCalculatorImpl implements WordSquareCalculator{
 
 	private static final String NOT_FINISHED_ANSWER = "NOT_FIN";
 	
-	private int wordLength; 
-//	private String availableCharacters;
-//	private SearchTreeNode treeRoot;
+	private int wordLength;
 	private String[] answer;
 	private StringBuilder[] remainingLetters;
 	
@@ -59,27 +55,23 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 
 	private void buildAnswer()
 	{
-		SearchTreeNode treeRoot = new SearchTreeNode();
-		buildBranch(treeRoot, 0);
+		buildBranch(0);
 	}
 	
-	private void buildBranch(SearchTreeNode node, int depth)
+	private void buildBranch(int depth)
 	{
 		if(this.answer[wordLength - 1] == NOT_FINISHED_ANSWER)
 		{
-			SearchTreeNode newChild;
 			String prefix = genoratePrefix(depth);
 			Set<String> childrenWords = languageDict.search(prefix);
+			String curWord = depth > 0 ? answer[depth - 1] : null;
 			
 			for(String childWord : childrenWords)
 			{
 				if(calculateNewUsedCharacters(childWord, depth))
 				{
-					newChild = new SearchTreeNode(node, childWord);
-					node.getChildren().add(newChild);
 					answer[depth] = childWord;
-					buildBranch(newChild, depth+1);
-					node.getChildren().remove(newChild);
+					buildBranch(depth+1);
 				}
 				if(this.answer[wordLength - 1] != NOT_FINISHED_ANSWER){
 					break;
@@ -111,26 +103,12 @@ public class WordSquareCalculatorImpl implements WordSquareCalculator{
 		return true;
 	}
 
-	private String genoratePrefix(int depth)
-	{
+	private String genoratePrefix(int depth) {
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0;  i < depth; i++)
-		{
+		for (int i = 0; i < depth; i++) {
 			sb.append(answer[i].charAt(depth));
 		}
 		return sb.toString();
 	}
-
-//	public int getWordLength() {
-//		return this.wordLength;
-//	}
-//
-//	public String getAvailableCharacters() {
-//		return this.availableCharacters;
-//	}
-//
-//	public SearchTreeNode getTreeRoot() {
-//		return treeRoot;
-//	}
 	
 }
